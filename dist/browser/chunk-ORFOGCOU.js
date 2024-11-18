@@ -1,1 +1,0 @@
-import{G as n,Q as a,ha as r,l as o}from"./chunk-WG43CR7G.js";import"./chunk-2VMXMS7J.js";var p=class t{static \u0275fac=function(e){return new(e||t)};static \u0275cmp=o({type:t,selectors:[["app-board"]],standalone:!0,features:[a],decls:1,vars:0,template:function(e,s){e&1&&n(0,"router-outlet")},dependencies:[r]})};export{p as BoardComponent};

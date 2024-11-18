@@ -1,1 +1,0 @@
-import"./chunk-2VMXMS7J.js";var t=[{path:"board",loadComponent:()=>import("./chunk-ORFOGCOU.js").then(o=>o.BoardComponent),loadChildren:()=>import("./chunk-VHZLJBV3.js").then(o=>o.BOARD_ROUTES)}];export{t as HOME_ROUTES};

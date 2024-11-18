@@ -1,1 +1,0 @@
-import"./chunk-2VMXMS7J.js";var t=[{path:"list",loadComponent:()=>import("./chunk-GV5XCMM6.js").then(o=>o.ListComponent)},{path:"register",loadComponent:()=>import("./chunk-ELEBPYB5.js").then(o=>o.FormComponent)},{path:"edit/:id",loadComponent:()=>import("./chunk-ELEBPYB5.js").then(o=>o.FormComponent)}];export{t as BOARD_ROUTES};
