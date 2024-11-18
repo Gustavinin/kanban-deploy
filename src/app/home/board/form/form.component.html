@@ -1,0 +1,98 @@
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col">
+                <span>Tarefa</span>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <form [formGroup]="taskForm">
+            <div class="row">
+                <div class="col-4">
+                    <div class="form-group">
+                        <label for="title">Título</label>
+                        <input formControlName="title" type="text" class="form-control" [ngClass]="applyError('title')">
+                        <div *ngIf="taskForm.controls['title'].hasError('required')" class="invalid-feedback">
+                            Preencha o título!
+                        </div>
+                        <div *ngIf="taskForm.controls['title'].hasError('minlength')" class="invalid-feedback">
+                            O título deve ter o mínimo de 2 caracteres!
+                        </div>
+                        <div *ngIf="taskForm.controls['title'].hasError('maxlength')" class="invalid-feedback">
+                            O título deve ter o máximo de 50 caracteres!
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="description">Descrição</label>
+                        <input formControlName="description" type="text" class="form-control">
+                        <div *ngIf="taskForm.controls['description'].hasError('maxlength')" class="invalid-feedback">
+                            A descrição deve ter o máximo de 200 caracteres!
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="form-group">
+                        <label for="priority">Prioridade</label>
+                        <select formControlName="priority" class="form-select">
+                            <option value="low">Baixa</option>
+                            <option value="medium">Média</option>
+                            <option value="high">Alta</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-3 mt-2">
+                    <div class="form-group">
+                        <label for="dueDate">Data de Vencimento</label>
+                        <input formControlName="dueDate" type="date" class="form-control" [ngClass]="applyError('dueDate')">
+                        <div *ngIf="taskForm.controls['dueDate'].hasError('required')" class="invalid-feedback">
+                            Preencha a data de vencimento!
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4 mt-2">
+                    <div class="form-group">
+                        <label for="assignees">Responsáveis</label>
+                        <input formControlName="assignees" type="text" class="form-control" [ngClass]="applyError('assignees')">
+                        <div *ngIf="taskForm.controls['assignees'].hasError('maxlength')" class="invalid-feedback">
+                            O nome deve ter o máximo de 100 caracteres!
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3 mt-2">
+                    <div class="form-group">
+                        <label for="status">Status</label>
+                        <select formControlName="status" class="form-select">
+                            <option value="toDo">A fazer</option>
+                            <option value="inProgress">Em andamento</option>
+                            <option value="done">Concluído</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+        </form>
+    </div>
+    <div class="card-footer">
+        <div class="row">
+            <div class="col-6">
+                <button routerLink="/board/list" class="btn btn-warning btn-sm">
+                    <i class="bi bi-arrow-return-left"></i>
+                    Cancelar
+                </button>
+            </div>
+            <div class="col-6 d-flex justify-content-end">
+                <button (click)="onDeleteTask()" class="btn btn-danger btn-sm text-light me-2">
+                    <i class="bi bi-trash-fill"></i>
+                    Excluir
+                </button>
+                <button (click)="onSubmit()" class="btn btn-success btn-sm text-light">
+                    <i class="bi bi-floppy2-fill"></i>
+                    Salvar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,194 @@
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col d-flex justify-content-between">
+                <div class="align-content-center">
+                  <span class="fw-bold">
+                    <i class="bi bi-kanban-fill"></i>
+                    Quadro de tarefas
+                  </span>
+                </div>
+                <button class="btn btn-primary" routerLink="/board/register">
+                  <i class="bi bi-file-earmark-plus"></i> Novo
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card-body">
+      <div>
+        <div class="row">
+          <div class="col-4 d-flex flex-column">
+            <span class="text-center fs-3 fw-bold mb-2">A fazer</span>
+            <div
+              [class.horizontal]="layout.dndHorizontal"
+              [dndHorizontal]="layout.dndHorizontal"
+              (dndDrop)="onDrop($event, 'toDo', toDoList)"
+              class="dndList gap-1 d-flex flex-column bg-light rounded-1 shadow-sm"
+              dndDropzone
+              dndEffectAllowed="copyMove"
+              style="min-height: 500px;">
+              <div
+                class="dndPlaceholder border rounded-1 bg-opacity-25"
+                dndPlaceholderRef>
+              </div>
+
+              <div
+                *ngFor="let item of toDoList"
+    
+                [dndDraggable]="item"
+                [dndEffectAllowed]="'move'"
+                (dndCanceled)="onDragged(item, toDoList, 'none')"
+                (dndEnd)="onDragEnd($event)"
+                (dndLinked)="onDragged(item, toDoList, 'link')"
+                (dndMoved)="onDragged(item, toDoList, 'move')"
+                (dndStart)="onDragStart($event)"
+                class="card" style="min-height: 50px;">
+                <div class="card-body">
+                  <div class="row">
+                    <div [ngSwitch]="item.priority" class="col-12 d-flex justify-content-between">
+                      <span *ngSwitchCase="'low'" class="badge text-bg-success" style="min-width: 55px;">Baixa</span>
+                      <span *ngSwitchCase="'medium'" class="badge text-bg-warning" style="min-width: 55px;">Média</span>
+                      <span *ngSwitchCase="'high'" class="badge text-bg-danger" style="min-width: 55px;">Alta</span>
+                      <i class="bi bi-three-dots" style="cursor: pointer;" [routerLink]="['/board/edit', item.id]"></i>
+                    </div>
+                    <div class="col-12">
+                      <span class="fw-bold">{{ item.title }}</span>
+                    </div>
+                    <div class="col-12">
+                      <i class="bi bi-chat-left-text me-2"></i>
+                      <span>{{ item?.description }}</span>
+                    </div>
+                    <div class="col-12">
+                      <i class="bi bi-calendar-event me-2"></i>
+                      <span>{{ item?.dueDate | date:'dd/MM/yyy' }}</span>
+                    </div>
+                    <div class="col-12">
+                      <i class="bi bi-person me-2"></i>
+                      <span>{{ item.assignees }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+              
+      
+          <div class="col-4 d-flex flex-column">
+            <span class="text-center fs-3 fw-bold mb-2">Em andamento</span>
+      
+            <div
+              [class.horizontal]="layout.dndHorizontal"
+              [dndHorizontal]="layout.dndHorizontal"
+              (dndDrop)="onDrop($event, 'inProgress', inProgressList)"
+              class="dndList gap-1 flex-grow-1 d-flex flex-column bg-light rounded-1 shadow-sm"
+              dndDropzone
+              dndEffectAllowed="copyMove" 
+              style="min-height: 500px;">
+              
+              <div
+                class="dndPlaceholder border rounded-1 bg-white bg-opacity-25"
+                dndPlaceholderRef>
+              </div>
+              <div
+                *ngFor="let item of inProgressList"
+                [dndDraggable]="item"
+                [dndEffectAllowed]="'move'"
+                (dndCanceled)="onDragged(item, inProgressList, 'none')"
+                (dndCopied)="onDragged(item, inProgressList, 'copy')"
+                (dndEnd)="onDragEnd($event)"
+                (dndLinked)="onDragged(item, inProgressList, 'link')"
+                (dndMoved)="onDragged(item, inProgressList, 'move')"
+                (dndStart)="onDragStart($event)"
+                class="card" style="min-height: 50px;">
+                <div class="card-body">
+                  <div class="row">
+                    <div [ngSwitch]="item.priority" class="col-12 d-flex justify-content-between">
+                      <span *ngSwitchCase="'low'" class="badge text-bg-success" style="min-width: 55px;">Baixa</span>
+                      <span *ngSwitchCase="'medium'" class="badge text-bg-warning" style="min-width: 55px;">Média</span>
+                      <span *ngSwitchCase="'high'" class="badge text-bg-danger" style="min-width: 55px;">Alta</span>
+                      <i class="bi bi-three-dots" style="cursor: pointer;" [routerLink]="['/board/edit', item.id]"></i>
+                    </div>
+                    <div class="col-12">
+                      <span class="fw-bold">{{ item.title }}</span>
+                    </div>
+                    <div class="col-12">
+                      <i class="bi bi-chat-left-text me-2"></i>
+                      <span>{{ item?.description }}</span>
+                    </div>
+                    <div class="col-12">
+                      <i class="bi bi-calendar-event me-2"></i>
+                      <span>{{ item?.dueDate | date:'dd/MM/yyy' }}</span>
+                    </div>
+                    <div class="col-12">
+                      <i class="bi bi-person me-2"></i>
+                      <span>{{ item.assignees }}</span>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+
+
+        </div>
+          <div class="col-4 d-flex flex-column">
+            <span class="text-center fs-3 fw-bold mb-2">Concluído</span>
+      
+            <div
+              [class.horizontal]="layout.dndHorizontal"
+              [dndHorizontal]="layout.dndHorizontal"
+              (dndDrop)="onDrop($event, 'done', doneList)"
+              class="dndList gap-1 flex-grow-1 d-flex flex-column bg-light rounded-1 shadow-sm"
+              dndDropzone
+              dndEffectAllowed="copyMove"
+              style="min-height: 500px;">
+              <div
+                class="dndPlaceholder border rounded-1 bg-white bg-opacity-25"
+                dndPlaceholderRef>
+              </div>
+              <div
+                *ngFor="let item of doneList"
+                [dndDraggable]="item"
+                [dndEffectAllowed]="'move'"
+                (dndCanceled)="onDragged(item, doneList, 'none')"
+                (dndCopied)="onDragged(item, doneList, 'copy')"
+                (dndEnd)="onDragEnd($event)"
+                (dndLinked)="onDragged(item, doneList, 'link')"
+                (dndMoved)="onDragged(item, doneList, 'move')"
+                (dndStart)="onDragStart($event)"
+                class="card" style="min-height: 50px;">
+                <div class="card-body">
+                  <div class="row">
+                    <div [ngSwitch]="item.priority" class="col-12 d-flex justify-content-between">
+                      <span *ngSwitchCase="'low'" class="badge text-bg-success" style="min-width: 55px;">Baixa</span>
+                      <span *ngSwitchCase="'medium'" class="badge text-bg-warning" style="min-width: 55px;">Média</span>
+                      <span *ngSwitchCase="'high'" class="badge text-bg-danger" style="min-width: 55px;">Alta</span>
+                      <i class="bi bi-three-dots" style="cursor: pointer;" [routerLink]="['/board/edit', item.id]"></i>
+                    </div>
+                    <div class="col-12">
+                      <span class="fw-bold">{{ item.title }}</span>
+                    </div>
+                    <div class="col-12">
+                      <i class="bi bi-chat-left-text me-2"></i>
+                      <span>{{ item?.description }}</span>
+                    </div>
+                    <div class="col-12">
+                      <i class="bi bi-calendar-event me-2"></i>
+                      <span>{{ item?.dueDate | date:'dd/MM/yyyy' }}</span>
+                    </div>
+                    <div class="col-12">
+                      <i class="bi bi-person me-2"></i>
+                      <span>{{ item.assignees }}</span>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+      </div>
+    </div>
+</div>
+
+
+
+
+
